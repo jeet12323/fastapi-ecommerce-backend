@@ -6,7 +6,10 @@ import os
 load_dotenv()
 MONGO_URI = os.getenv("MONGO_URI")
 
-client = AsyncIOMotorClient(MONGO_URI)
+client = AsyncIOMotorClient(MONGO_URI,
+     tls=True,
+     tlsAllowInvalidCertificates=False  #  True ONLY for local/dev i had to add for production it wasnt working on render
+    )
 db = client["ecommerce_db"]
 
 products_collection = db["products"]
